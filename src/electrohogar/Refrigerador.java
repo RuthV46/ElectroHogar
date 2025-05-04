@@ -1,25 +1,50 @@
 package electrohogar;
 
-public class Refrigerador extends Electrodomestico{
+import javax.swing.JOptionPane;
+
+public class Refrigerador extends Electrodomestico {
     private String tipoEnergia;
-    private Refrigerador siguiente;
-    
-    public Refrigerador(String numeroSerie, String marca, String modelo, double precioUnitario, String tipoEnergia) {
-        super(numeroSerie, marca, modelo, precioUnitario);
+
+    public Refrigerador() {
+    }
+
+    public Refrigerador(String nSerie, String marca, String modelo, double precioU, String tipoEnergia) {
+        super(nSerie, marca, modelo, precioU);
         this.tipoEnergia = tipoEnergia;
-        this.siguiente = null;
     }
     
-    public void setSiguiente(Refrigerador refrigerador) {
-        this.siguiente = refrigerador;
+    public Refrigerador ingresarDatos(){
+        
+        //locales auxiliares para la lectura
+        String serie, trademark, model, type;
+        double priceU=0;
+        serie=Validaciones.leerString("Digite el numero de serie del refrigerador: ");
+        trademark=Validaciones.leerString("Digite la marca del refrigerador: ");
+        model=Validaciones.leerString("Digite el modelo del refrigerador: ");
+        priceU=Validaciones.leerReal(JOptionPane.showInputDialog("Digite el precio unitario del refrigerador: "));
+            
+        
+        type=Validaciones.leerString("Digite el tipo de energia del refrigerador: \n"
+                +"GAS o ELECTRICO: ").toUpperCase();
+        //instanciamos la clase o sea crear el objeto
+        Refrigerador objR;
+        //llamar al constructor
+        objR=new Refrigerador(serie,trademark, model, priceU, type);
+        return objR;
     }
-    
-    public Refrigerador getSiguiente() {
-        return this.siguiente;
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "Refrigerador {"+ super.toString() + ", tipo de Energia=" + tipoEnergia + "}";
     }
     
     public String getTipoEnergia() {
-        return this.tipoEnergia;
+        return tipoEnergia;
+    }
+
+    public void setTipoEnergia(String tipoEnergia) {               
+        this.tipoEnergia = tipoEnergia;
     }
     
 }

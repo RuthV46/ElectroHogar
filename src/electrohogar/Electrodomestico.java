@@ -1,24 +1,55 @@
 package electrohogar;
 
-import java.util.Scanner;
-
 public abstract class Electrodomestico {
-    /*El modificador protected en la clase Electrodomestico permite que las clases hijas (Lavadora y Refrigerador
-         accedan directamente a los atributos sin necesidad de usar getters y setters
-    */
-    protected String numeroSerie;
-    protected String marca;
-    protected String modelo;
-    protected double precioUnitario;
+    private String nSerie, marca, modelo;
+    private double precioU;
     
-    public Electrodomestico(String numeroSerie, String marca, String modelo, double precioUnitario) {
-        this.numeroSerie = numeroSerie;
+    public Electrodomestico(){}
+
+    public Electrodomestico(String nSerie, String marca, String modelo, double precioU) {
+        this.nSerie = nSerie;
         this.marca = marca;
         this.modelo = modelo;
-        this.precioUnitario = precioUnitario;
+        this.precioU = precioU;
     }
-    
-    public double getPrecioUnitario() {
-        return this.precioUnitario;
+
+    @Override
+    public String toString() {
+        return " nSerie=" + nSerie + ", marca=" + marca + ", modelo=" + modelo + ", precioU=" + precioU;
     }
+
+    public String getnSerie() {
+        return nSerie;
+    }
+
+    public void setnSerie(String nSerie) {
+        this.nSerie = nSerie;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public double getPrecioU() {
+        return precioU;
+    }
+
+    public void setPrecioU(double precioU) {
+        this.precioU = precioU;
+    }   
+
 }
+    
+    
