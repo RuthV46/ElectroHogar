@@ -15,20 +15,26 @@ public class ElectroHogar {
         //Instaciar cola y cola auxiliar
         Cola objC=new Cola(10000);
         Cola objCA=new Cola(10000);
+        //Lista doble de refrigerador
+        ListaDoble objLD=new ListaDoble();
         //Instaciar clases de manejo
         ManejoPila objMP=new ManejoPila();
         ManejoCola objMC=new ManejoCola();
+        ManejoListas objML=new ManejoListas();
         
-        int opt;
+        String serie = null, texto=null;
+        
+        int opt;//opcion de menus
         do{
             opt=Integer.parseInt(JOptionPane.showInputDialog("Menu\n"
                 + "1. Manejo de Cola de Refrigerador\n"
                 + "2. Manejo de Pila de Lavadora\n"
-                + "3. Manejo de otras historias o requisitos de usuario\n"
-                + "4. Salir"));
+                + "3. Manejo de Lista Doble de Refrigerador\n"
+                + "4. Manejo de otras historias o requisitos de usuario\n"
+                + "5. Salir"));
             switch(opt){                
                 case 1:
-                    int option1;
+                    int option1;//opcion cola
                     do{//repetir el menu mientras sea solicitado
                         option1=Integer.parseInt(JOptionPane.showInputDialog("Menu\n"
                         +"1. Ingresar Datos Refrigerador cola\n"
@@ -66,7 +72,7 @@ public class ElectroHogar {
                 break;
                 
                 case 2:
-                    int option2;
+                    int option2;//opcion pila
                     do{//repetir el menu mientras sea solicitado
                         option2=Integer.parseInt(JOptionPane.showInputDialog("Menu\n"
                         +"1. Ingresar Datos Lavadora cola\n"
@@ -93,10 +99,130 @@ public class ElectroHogar {
                                 break;
                         }
                     }while(option2<4);
+                break;
                     
                 case 3:
+                    int option3;//opcion lista
+                    do{//repetir el menu mientras sea solicitado
+                        option3=Validaciones.leerEntero("Menu\n"
+                        + "1. Ingresar Datos de lista de Refrigeradores\n"
+                        + "2. Mostrar lista de refrigeradores por inicio\n"
+                        + "3. Mostrar lista de refrigeradores por final\n"
+                        + "4. Liberar el dato de inicio\n"
+                        + "5. Liberar el dato de final\n"
+                        + "6. Liberar el dato especifico por id\n"
+                        + "7. Insertar dato al inicio\n"
+                        + "8. Insertar dato al final\n"
+                        + "9. Insertar dato nuevo antes de un dato referencia\n"
+                        + "10. Insertar dato nuevo despues de un dato referencia\n"
+                        + "15. Regresar al menu principal");
+
+                        switch (option3){
+                            case 1: //de que forma desea ingresar los datos
+                                objLD = new ListaDoble();
+                                int resp=Validaciones.leerEntero( "Ingresar los datos\n"
+                                        + "1. Por inicio\n"
+                                        + "2. Por final\n");
+                                objLD=objML.ingresarDatos(objLD, resp);                                
+                                break;
+                                
+                            case 2:
+                                if(objLD.EstaVacia()==false)
+                                    JOptionPane.showMessageDialog(null, "La Lista de refrigeradores desde inicio es: "+objLD.ImprimirDesdeCabeza());
+                                else 
+                                    JOptionPane.showMessageDialog(null, "La Lista de refrigeradores esta vacia");
+                                break;
+                                
+                            case 3:
+                                 if(objLD.EstaVacia()==false)
+                                    JOptionPane.showMessageDialog(null, "La Lista de refrigeradores desde final es: "+objLD.ImprimirDesdeFinal());
+                                else 
+                                    JOptionPane.showMessageDialog(null, "La Lista de refrigeradores esta vacia");
+                                break;
+                                
+                            case 4:
+                                if(objLD.EstaVacia()==false)//hay datos
+                                    JOptionPane.showMessageDialog(null,"Se eliminó el primer dato: \n"+objLD.LiberarCabeza());
+                                else
+                                    JOptionPane.showMessageDialog(null,"La lista de ponentes esta vacia");
+                                break;
+                                
+                            case 5:
+                                if(objLD.EstaVacia()==false)//hay datos
+                                    JOptionPane.showMessageDialog(null,"Se eliminó el ultimo dato: \n"+objLD.LiberarUltimo());
+                                else
+                                    JOptionPane.showMessageDialog(null,"La lista de ponentes esta vacia");
+                                break;
+                                
+                            case 6:
+                               if(objLD.EstaVacia()==false){
+                                   serie=Validaciones.leerString("Numero de serie del refrigerador a eliminar");
+                                   texto=objLD.LiberarDato(serie);
+                                   if(!texto.equals(""))
+                                       JOptionPane.showMessageDialog(null, texto);                                  
+                               }else
+                                   JOptionPane.showMessageDialog(null, "La lista de ponentes esta vacia");
+                               break;              
+                               
+                            case 7:
+                                if(objLD.EstaVacia()==false){
+                                    ObjR=ObjR.ingresarDatos();
+                                    objLD.InsertarComoCabeza(ObjR);
+                                    JOptionPane.showMessageDialog(null, "Se insertó "+ObjR.getnSerie()+ " de primero en la lista de refrigeradores");
+                                }else
+                                    JOptionPane.showMessageDialog(null, "La lista de refrigeradores esta vacia");
+                                break;
+                                
+                            case 8:
+                                if(objLD.EstaVacia()==false){
+                                    ObjR=ObjR.ingresarDatos();
+                                    objLD.InsertarAlFinal(ObjR);
+                                    JOptionPane.showMessageDialog(null, "Se insertó "+ObjR.getnSerie()+ " de ultimo en la lista de refrigeradores");
+                                }else
+                                    JOptionPane.showMessageDialog(null, "La lista de refrigeradores esta vacia");
+                                break; 
+                                
+                            case 9:
+                                if(objLD.EstaVacia()==false){
+                                    serie=Validaciones.leerString("Ingrese el numero de serie del refrigerador para insertar antes de esta serie: ");
+                                    if(objLD.Buscar(serie)==true){
+                                        
+                                        ObjR=ObjR.ingresarDatos();
+                                        objLD.InsertarAntes(serie, ObjR);
+                                        JOptionPane.showMessageDialog(null,"Se insertó "+ObjR.getnSerie()+" antes del refrigerador con serie: "+serie);
+                                    }
+                                    else
+                                        JOptionPane.showMessageDialog(null, "Numero de serie NO se encuentra en la lista, NO se inserta");
+                                } else
+                                    JOptionPane.showMessageDialog(null, "La lista de refrigeradores esta vacia");
+                                break;
+                                
+                            case 10:
+                                if(objLD.EstaVacia()==false){
+                                    serie=Validaciones.leerString("Ingrese serie de refrigerador y asi insertar nuevo refrigerador despues de esta serie");
+                                    if(objLD.Buscar(serie)==true){
+                                        
+                                        ObjR=ObjR.ingresarDatos();
+                                        objLD.InsertarDespues(serie, ObjR);
+                                        JOptionPane.showMessageDialog(null,"Se inserto "+ObjR.getnSerie()+" despues del numero de serie: "+ serie);
+                                    }
+                                    else
+                                        JOptionPane.showMessageDialog(null, "Numero de serie NO se encuentra en la lista, NO se inserta");
+                                } else
+                                    JOptionPane.showMessageDialog(null, "La lista de refrigeradores esta vacia");
+                                break;
+
+                        }//fin caso 3
+                    }while(option3<15);
+                    break;
+                    
+                
+                case 4:
+                    break;
+                    
+                case 5:
                     break;
             }
-        }while(opt<3);
+        }while(opt<4);
     }
 }

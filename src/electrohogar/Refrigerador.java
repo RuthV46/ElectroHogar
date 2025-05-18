@@ -21,15 +21,13 @@ public class Refrigerador extends Electrodomestico {
         serie=Validaciones.leerString("Digite el numero de serie del refrigerador: ");
         trademark=Validaciones.leerString("Digite la marca del refrigerador: ");
         model=Validaciones.leerString("Digite el modelo del refrigerador: ");
-        priceU=Validaciones.leerReal(JOptionPane.showInputDialog("Digite el precio unitario del refrigerador: "));
-            
-        
-        type=Validaciones.leerString("Digite el tipo de energia del refrigerador: \n"
+        priceU=Validaciones.leerReal("Digite el precio unitario del refrigerador: ");
+        type=Validaciones.leerTipo("Digite el tipo de energia del refrigerador: \n"
                 +"GAS o ELECTRICO: ").toUpperCase();
         //instanciamos la clase o sea crear el objeto
         Refrigerador objR;
         //llamar al constructor
-        objR=new Refrigerador(serie,trademark, model, priceU, type);
+        objR=new Refrigerador(serie, trademark, model, priceU, type);
         return objR;
     }
 

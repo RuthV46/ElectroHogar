@@ -91,9 +91,7 @@ public class Nodo
 
     public void setSig(Nodo sig) {
         this.sig = sig;
-    }
-    
-    
+    }   
    
 }//fin clase nodo
 
