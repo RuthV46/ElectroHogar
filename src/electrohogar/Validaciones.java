@@ -66,26 +66,28 @@ public class Validaciones {
 		return cadena;
         } 
         
-        //Metodo para aceptar entrada de tipos de energia o gas
+        //Metodo para aceptar entrada de cadena de tipos de energia o gas
         public static String leerTipo(String mensaje) {
             String cadena = "";
-            boolean ingresoValido = false;
+            boolean ingresoValido = false;//Controla si el dato es correcto. Empieza en false porque aún no se ha validado.
 
             do {
                 try {
                     cadena = JOptionPane.showInputDialog(mensaje);
                     if (cadena != null) {  // Verificar que no se haya presionado Cancelar
+                        
+                        //Compara la entrada de cadena (ignorando mayúsculas/minúsculas) con las opciones válidas
                         if (cadena.equalsIgnoreCase("GAS") || cadena.equalsIgnoreCase("ELECTRICO")) {
-                            ingresoValido = true;
-                        } else {
+                            ingresoValido = true;//Si la entrada es correcta, sale del bucle
+                        } else {//Si es incorrecto, muestra un mensaje de error y el bucle continúa.
                             JOptionPane.showMessageDialog(null, "ERROR, Ingresar solo GAS o ELECTRICO!");
                         }
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "ERROR - OJO la Excepción es: " + e);
                 }
-            } while (!ingresoValido);
+            } while (!ingresoValido);//Mientras NO sea válido, se repite el ciclo 
 
-            return cadena;
+            return cadena;//Devuelve "GAS" o "ELECTRICO" (en el formato en que se ingresó)
         }
 }
